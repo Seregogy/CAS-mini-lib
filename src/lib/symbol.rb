@@ -1,6 +1,4 @@
 class Term
-  attr_reader :term_pow, :term_multiplier
-
   private
 
   def validate_ctor(term)
@@ -32,5 +30,10 @@ class Term
     @term_multiplier *= value
 
     self
+  end
+
+  def to_s
+    return "#{@term_multiplier}#{@term_name}" if @term_pow == 1
+    "#{@term_multiplier}#{@term_name}^#{@term_pow}"
   end
 end

@@ -2,12 +2,15 @@
 
 require_relative '../src/lib/symbol'
 
-a = Term.new('x')
+x = Term.new('x')
+y = Term.new('y')
 
-a.mult(2)
+x.mult(2)
  .pow(2)
  .pow(2)
  .mult(2)
 
-puts a.term_pow
-puts a.term_multiplier
+y.mult(32)
+
+puts x
+puts y
