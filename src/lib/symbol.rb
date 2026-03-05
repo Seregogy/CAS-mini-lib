@@ -36,7 +36,7 @@ class Term
     @term_multiplier = 0 if @term_pow.zero?
     @term_name = nil if @term_pow == 1
 
-    if @term_multiplier > 1
+    if @term_pow > 1
       @term_multiplier *= @term_pow
       @term_pow -= 1
     end
