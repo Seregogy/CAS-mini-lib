@@ -45,7 +45,7 @@ class Term
   end
 
   def to_s
-    prefix = @term_multiplier > 1 ? @term_multiplier : nil
+    prefix = @term_multiplier != 1 ? @term_multiplier : nil
     suffix = @term_pow > 1 ? "^#{@term_pow}" : nil
 
     "#{prefix}#{@term_name}#{suffix}"
