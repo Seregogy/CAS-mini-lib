@@ -38,7 +38,7 @@ class Term
 
     if @term_multiplier > 1
       @term_multiplier *= @term_pow
-      @term_name -= 1
+      @term_pow -= 1
     end
 
     self
