@@ -1,16 +1,15 @@
 # frozen_string_literal: true
 
-require_relative '../src/lib/symbol'
+require_relative '../src/lib/term'
+require_relative '../src/lib/expr'
 
-x = Term.new('x')
-y = Term.new('y')
+x = Term.new('x').mult(2).pow(3)
+y = Term.new('y').mult(3).pow(2)
 
-x.mult(2)
- .pow(2)
- .pow(2)
- .mult(2)
+snegovii = Expr.new(x, y, '+')
 
-y.mult(32)
+puts snegovii
 
-puts x
-puts y
+snegovii.diff
+snegovii.diff
+puts snegovii

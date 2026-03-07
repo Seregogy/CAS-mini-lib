@@ -1,4 +1,4 @@
-class Expression < Term
+class Expr < Term
   def initialize(left, right, operator)
     super('expr')
 
@@ -13,11 +13,11 @@ class Expression < Term
   end
 
   def +(other)
-    Expression.new(self, other, '+')
+    Expr.new(self, other, '+')
   end
 
   def -(l_expr, r_expr)
-    Expression.new(l_expr, r_expr, '-')
+    Expr.new(l_expr, r_expr, '-')
   end
 
 
