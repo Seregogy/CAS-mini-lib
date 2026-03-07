@@ -39,14 +39,18 @@ class Term
     if @term_pow > 1
       @term_multiplier *= @term_pow
       @term_pow -= 1
+
+    elsif @term_pow.negative?
+      @term_multiplier *= @term_pow
+      @term_pow -= 1
     end
 
     self
   end
 
   def to_s
-    prefix = @term_multiplier != 1 ? @term_multiplier : nil
-    suffix = @term_pow > 1 ? "^#{@term_pow}" : nil
+    prefix = @term_multiplier != 1 || @term_name.nil? ? @term_multiplier : nil
+    suffix = @term_pow != 1 ? "^#{@term_pow}" : nil
 
     "#{prefix}#{@term_name}#{suffix}"
   end

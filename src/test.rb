@@ -1,32 +1,32 @@
-require_relative '../src/lib/symbol'
+require_relative '../src/lib/term'
 require 'minitest/autorun'
 
 class TermTest < Minitest::Test
   def test_basic_with_no_pow
-    assert_equal Term.new('x').mult(23).mult(2).to_s, "46x" 
+    assert_equal "46x", Term.new('x').mult(23).mult(2).to_s
   end
   def test_basic_with_pow
-    assert_equal Term.new('y').pow(2).pow(2).to_s, "y^4"
+    assert_equal "y^4", Term.new('y').pow(2).pow(2).to_s
   end
   def test_basic_with_pow_and_mult
-    assert_equal Term.new('z').pow(2).mult(3).pow(5).mult(-2).to_s, "-486z^10"
+    assert_equal "-486z^10", Term.new('z').pow(2).mult(3).pow(5).mult(-2).to_s
   end
   def test_diff_basic
-    assert_equal Term.new('x').pow(2).mult(3).diff.to_s, "6x"
+    assert_equal "6x", Term.new('x').pow(2).mult(3).diff.to_s
   end
   def test_diff_only_mult 
-    assert_equal Term.new('x').mult(-3).diff.to_s, "-3"
+    assert_equal "-3", Term.new('x').mult(-3).diff.to_s
   end
   def test_diff_only_pow
-    assert_equal Term.new('x').pow(4).diff.to_s, "4x^3"
+    assert_equal "4x^3", Term.new('x').pow(4).diff.to_s
   end
   def test_diff_only_negative_pow
-    assert_equal Term.new('x').pow(-4).diff.to_s, "-4x^-5"
+    assert_equal "-4x^-5", Term.new('x').pow(-4).diff.to_s
   end
   def test_diff_const
-    assert_equal Term.new('x').diff.to_s, "1"
+    assert_equal "1", Term.new('x').diff.to_s
   end
   def test_diff_negative_const
-    assert_equal Term.new('x').mult(-1).diff.to_s, "-1"
+    assert_equal "-1", Term.new('x').mult(-1).diff.to_s
   end
 end
