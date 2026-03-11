@@ -3,13 +3,22 @@
 require_relative '../src/lib/term'
 require_relative '../src/lib/expr'
 
-x = Term.new('x').mult(2).pow(3)
-y = Term.new('y').mult(3).pow(2)
+# частичная проверка термов
+# puts Term.new("x").diff("x")
+# puts Term.new("3x").diff("x")
+# puts Term.new("x^2").diff("x")
+# puts Term.new("-3x").diff("x")
+# puts Term.new("3x^2").diff("x")
+# puts Term.new("x").diff("x")
+# puts Term.new("-x").diff("x")
 
-snegovii = Expr.new(x, y, '+')
+#частичная проверка на выражения
+# puts Expr.new()
+puts Expr.new(Term.new("x"), Term.new("-3x^2")).diff("x").diff("x")
+puts Expr.new(Term.new("3x^2"), Term.new("y^4")).diff("y")
+puts Expr.new(Term.new("x^2"))
+# puts Expr.new(Term.new("-3x^2"))
+# puts Expr.new(Term.new("2"))
+# puts Expr.new(Term.new("-3"))
 
-puts snegovii
-
-snegovii.diff
-snegovii.diff
-puts snegovii
+# прибери код немного и просмотри на ошибки далее нам полное покрытие надо делать
