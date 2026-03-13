@@ -1,7 +1,7 @@
 require_relative '../src/lib/term'
 require 'minitest/autorun'
 
-class TermTestInitializeCompound < Minitest::Test
+class TermTestInitializeCompound < Minitest::Test # полное покрыттие html реализоватьь
   def test_basic_with_no_pow
     assert_equal "46x", Term.new('46x').to_s
   end

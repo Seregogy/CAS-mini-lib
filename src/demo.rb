@@ -14,6 +14,7 @@ require_relative '../src/lib/expr'
 
 #частичная проверка на выражения
 # puts Expr.new()
+# можно добавить парсер для выражения 2*x^3 + 2*y
 puts Expr.new(Term.new("x"), Term.new("-3x^2")).diff("x").diff("x")
 puts Expr.new(Term.new("3x^2"), Term.new("y^4")).diff("y")
 puts Expr.new(Term.new("x^2"))
