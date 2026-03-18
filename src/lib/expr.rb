@@ -1,58 +1,72 @@
-class Expr < Term
+require_relative 'term'
 
-  # def initialize(left, right, operator)
-  #   super('expr')
-  #
-  #   @left_term = left
-  #   @right_term = right
-  #   @operator = operator
-  # end
-
+# Класс для представления выражения как суммы термов
+class Expr
   public
 
   def initialize(*args)
-    # если хочешь заморочся с regex для парсинга строки 4x^2 + y - 10
-    @terms = args.to_ary
-  end
-
-  def diff(symb)
-    temp = Array.new
-    for term in @terms
-      term.diff(symb)
-      if term.to_s.eql?("0")
-        temp.push(term)
-      end
-    end
-    for term in temp
-      @terms.delete(term)
-    end
-    self
-  end
-
-  def +(other)
-    @terms.push(other)
-    self
-  end
-
-  def -(other)
-    other.mult(-1)
-    @terms.push(other)
-    self
-  end
-
-  def to_s # хз добавь поле isnegative для упрощения читаемости
-    return "0" if @terms.length == 0
-    s = ""
-    for term in @terms
-      if term.to_s[0].eql?("-")
-        s += "- #{term.to_s[1, term.to_s.length]} "
+    if args.size == 1
+      if args[0].is_a?(String)
+        @terms = parse_string(args[0])
+      elsif args[0].is_a?(Array)
+        @terms = args[0]
       else
-        s += "+ #{term.to_s} "
+        @terms = args
+      end
+    else
+      @terms = args
+    end
+  end
+
+  # Дифференцирование выражения по переменной symb
+  def diff(symb)
+    @terms.each { |t| t.diff(symb) }
+    @terms.reject! { |t| t.to_s == '0' }
+    self
+  end
+
+  # Добавление терма (мутирует текущее выражение)
+  def +(other)
+    @terms << other
+    self
+  end
+
+  # Вычитание терма (мутирует текущее выражение)
+  def -(other)
+    other.mult(-1)   # предполагается, что other — Term
+    @terms << other
+    self
+  end
+
+  # Строковое представление выражения
+  def to_s
+    return '0' if @terms.empty?
+
+    result = ""
+    @terms.each_with_index do |t, i|
+      s = t.to_s
+      if s.start_with?('-')
+        result += (i.zero? ? s : " - #{s[1..-1]}")
+      else
+        result += (i.zero? ? s : " + #{s}")
       end
     end
-    if s[0].eql?("-")
-      return "-"+s[2,s.length]
+    result
+  end
+
+  private
+
+  # Разбор строки вида "x + 2y - 3x^2" в массив термов
+  def parse_string(str)
+    s = str.gsub(/\s+/, '')          # удаляем пробелы
+    return [] if s.empty?
+
+    s = '+' + s unless s.start_with?('+', '-')
+    terms = []
+    s.scan(/[+-]?(?:\d*[a-zA-Z](?:\^[+-]?\d+)?|\d+)/) do |token|
+      next if token.empty?
+      terms << Term.new(token)
     end
-    s[2, s.length]
+    terms
   end
 end
