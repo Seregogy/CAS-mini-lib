@@ -11,14 +11,22 @@
     </content>
     <orderEntry type="jdk" jdkName="ruby-4.0.1-p0" jdkType="RUBY_SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" scope="PROVIDED" name="ansi (v1.5.0, ruby-4.0.1-p0) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="builder (v3.3.0, ruby-4.0.1-p0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="bundler (v4.0.6, ruby-4.0.1-p0) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="docile (v1.4.1, ruby-4.0.1-p0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="drb (v2.2.3, ruby-4.0.1-p0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="language_server-protocol (v3.17.0.5, ruby-4.0.1-p0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="logger (v1.7.0, ruby-4.0.1-p0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="minitest (v6.0.2, ruby-4.0.1-p0) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="minitest-reporters (v1.7.1, ruby-4.0.1-p0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="prism (v1.9.0, ruby-4.0.1-p0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rbs (v3.10.3, ruby-4.0.1-p0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="ruby-lsp (v0.26.7, ruby-4.0.1-p0) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="ruby-progressbar (v1.13.0, ruby-4.0.1-p0) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="simplecov (v0.22.0, ruby-4.0.1-p0) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="simplecov-html (v0.13.2, ruby-4.0.1-p0) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="simplecov_json_formatter (v0.1.4, ruby-4.0.1-p0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="tsort (v0.2.0, ruby-4.0.1-p0) [gem]" level="application" />
   </component>
 </module>
