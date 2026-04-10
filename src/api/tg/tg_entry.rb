@@ -1,0 +1,101 @@
+# frozen_string_literal: true
+
+require 'telegram/bot'
+require 'set'
+require_relative '../../lib/term'
+require_relative '../../lib/expr'
+require_relative 'inline_keyboard_message'
+
+HELP_MESSAGE = "
+\`/expr <выражение>\` задать выражение
+\`/diff <переменная>\` продифференциировать по заданной переменной
+"
+
+token = '8338017733:AAEJe9-JovjSqVQtw7GOwg5I3hpJZfH5XJs'
+
+last_expressions = {}
+last_messages = {}
+
+Telegram::Bot::Client.run(token) do |bot|
+  puts 'Bot started'
+
+  bot.listen do |message|
+    case message
+    when Telegram::Bot::Types::CallbackQuery
+      puts "data #{message.data}"
+
+      case message.data
+      when %r{^/diff (.+)}
+        expr = last_expressions[message.from.id].diff(
+          Regexp.last_match(1).downcase! || Regexp.last_match(1)
+        )
+        last_expressions[message.from.id] = expr
+        last_message = last_messages[message.from.id]
+
+        current_message = response_with_available_variables(bot, expr, message.from.id, last_message&.message_id)
+        last_messages[message.from.id] = current_message
+
+      else
+        # type code here
+      end
+
+    when Telegram::Bot::Types::Message
+      puts "message #{message.text}"
+
+      case message.text
+      when '/start'
+        bot.api.send_message(
+          chat_id: message.chat.id,
+          text: "Привет, #{message.from.first_name}"
+        )
+
+      when '/help'
+        bot.api.send_message(
+          chat_id: message.chat.id,
+          text: HELP_MESSAGE,
+          parse_mode: 'Markdown'
+        )
+
+      when %r{^/diff (.+)}
+        expr = last_expressions[message.from.id].diff(
+          Regexp.last_match(1).downcase! || Regexp.last_match(1)
+        )
+        last_expressions[message.from.id] = expr
+        last_message = last_messages[message.from.id]
+
+        current_message = response_with_available_variables(bot, expr, message.from.id, last_message&.message_id)
+        last_messages[message.from.id] = current_message
+
+      when %r{^/expr (.*)}
+        expr = Expr.new(
+          Regexp.last_match(1).downcase! || Regexp.last_match(1)
+        )
+        last_expressions[message.from.id] = expr
+
+        last_message = last_messages[message.from.id]
+        unless last_message.nil?
+          bot.api.delete_message(
+            chat_id: message.chat.id,
+            message_id: last_message.message_id
+          )
+        end
+
+        current_message = response_with_available_variables(bot, expr, message.from.id, nil)
+        last_messages[message.from.id] = current_message
+
+      else
+        bot.api.send_message(
+          chat_id: message.chat.id,
+          text: 'Неизвестная команда'
+        )
+      end
+    else
+      # type code here
+    end
+
+  rescue StandardError => e
+    bot.api.send_message(chat_id: message.from.id, text: "Что то сломалось\n#{e.message}")
+    puts e.message
+    puts e.backtrace
+  end
+end
