@@ -11,7 +11,7 @@ HELP_MESSAGE = "
 \`/diff <переменная>\` продифференциировать по заданной переменной
 "
 
-token = '8338017733:AAEJe9-JovjSqVQtw7GOwg5I3hpJZfH5XJs'
+token = ENV['telegram_token']
 
 last_expressions = {}
 last_messages = {}
