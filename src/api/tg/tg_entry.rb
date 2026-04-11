@@ -46,7 +46,7 @@ Telegram::Bot::Client.run(token) do |bot|
       when '/start'
         bot.api.send_message(
           chat_id: message.chat.id,
-          text: "Привет, #{message.from.first_name}"
+          text: "Привет, #{message.from.first_name}\nУзнать что я умею: /help"
         )
 
       when '/help'
@@ -63,6 +63,11 @@ Telegram::Bot::Client.run(token) do |bot|
         last_expressions[message.from.id] = expr
         last_message = last_messages[message.from.id]
 
+        bot.api.delete_message(
+          chat_id: message.chat.id,
+          message_id: message.message_id
+        )
+
         current_message = response_with_available_variables(bot, expr, message.from.id, last_message&.message_id)
         last_messages[message.from.id] = current_message
 
@@ -73,6 +78,12 @@ Telegram::Bot::Client.run(token) do |bot|
         last_expressions[message.from.id] = expr
 
         last_message = last_messages[message.from.id]
+
+        bot.api.delete_message(
+          chat_id: message.chat.id,
+          message_id: message.message_id
+        )
+
         unless last_message.nil?
           bot.api.delete_message(
             chat_id: message.chat.id,
@@ -94,7 +105,6 @@ Telegram::Bot::Client.run(token) do |bot|
     end
 
   rescue StandardError => e
-    bot.api.send_message(chat_id: message.from.id, text: "Что то сломалось\n#{e.message}")
     puts e.message
     puts e.backtrace
   end
