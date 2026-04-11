@@ -1,7 +1,7 @@
-#require_relative 'test_helper'
+
+require_relative 'test_helper'
 require_relative '../lib/term'
 require_relative '../lib/expr'
-require 'minitest/autorun'
 
 class TermTestInitializeCompound < Minitest::Test # полное покрыттие html реализоватьь
   def test_basic_with_no_pow
