@@ -24,6 +24,6 @@ require_relative '../src/lib/expr'
 # puts Expr.new(Term.new("2"))
 
 # новая версия!!!!!
-# puts Expr.new("-2 + 2x - 4x^3").diff("x")
+puts Expr.new("-2 + 2x - 4x^3").diff("x")
 
 # прибери код немного и просмотри на ошибки далее нам полное покрытие надо делать
