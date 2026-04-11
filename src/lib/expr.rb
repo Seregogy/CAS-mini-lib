@@ -27,14 +27,23 @@ class Expr
 
   # Добавление терма (мутирует текущее выражение)
   def +(other)
-    @terms << other
+    if other.is_a?(String)
+      term = parse_string(other)
+    end
+    @terms << term[0]
     self
   end
 
   # Вычитание терма (мутирует текущее выражение)
   def -(other)
-    other.mult(-1)   # предполагается, что other — Term
-    @terms << other
+    if other.is_a?(String)
+      term = parse_string(other)
+    end
+    other = other.gsub(/\s+/, '')
+    unless other.start_with?("-")
+      term[0] = term[0].mult(-1)
+    end
+      @terms << term[0]
     self
   end
 

@@ -99,7 +99,6 @@ class ExprTest < Minitest::Test
 
   def test_initialize_with_string_zero_term
     expr = Expr.new('0x + y')
-    # Term.new('0x') даст множитель 0 → to_s = '0'
     assert_equal '0 + y', expr.to_s
   end
 
@@ -126,7 +125,7 @@ class ExprTest < Minitest::Test
 
   def test_diff_remove_zero_terms
     expr = Expr.new('x + 5')
-    expr.diff('y')          # дифференцирование по другой переменной обнуляет все термы
+    expr.diff('y')
     assert_equal '0', expr.to_s
   end
 
@@ -166,7 +165,7 @@ class ExprTest < Minitest::Test
 
   def test_subtraction_with_negative
     expr = Expr.new('x')
-    expr - Term.new('-3x')   # other = Term.new('-3x'), после mult(-1) станет 3x
+    expr - Term.new('-3x')
     assert_equal 'x + 3x', expr.to_s
   end
 
