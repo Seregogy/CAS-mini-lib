@@ -4,8 +4,9 @@ include VkLongpollBot
 
 
 # закинь в env
-String token = "vk1.a.xCkWRy9iYWv-azm5Gs3cUoiuSFXUt9WyhFI_WCpqpZesnWowXozc5V8rLln-toKQPD6J8l2lVA4vfsROeO3MvFBg6clzm8wRsnoAtE0xTXTekiqGPQHm1Dkhd5I4ZSPBkp7qP4SaYmZdrtJDvwbnvNbSdxH-ZwD2trbg75FgIqd-W0uZ4XE_1R3D4X-bHHiAtJ7gezRkY_UUU-zrd3dI5A"
-String groupId = "237525028"
+
+String token = ENV['vk_token']
+String groupId = ENV['group_id']
 
 KEYBOARD =
   {
