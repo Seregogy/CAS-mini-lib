@@ -1,0 +1,18 @@
+services:
+  tg-bot:
+    container_name: tg-bot
+    environment:
+      - TELEGRAM_TOKEN=${TELEGRAM_TOKEN}
+      - TELEGRAM_PROXY=${TELEGRAM_PROXY}
+    build:
+      context: .
+      dockerfile: Dockerfile-tg
+
+  vk-bot:
+    container_name: vk-bot
+    environment:
+      - VK_TOKEN=${VK_TOKEN}
+      - GROUP_ID=${GROUP_ID}
+    build:
+      context: .
+      dockerfile: Dockerfile-vk

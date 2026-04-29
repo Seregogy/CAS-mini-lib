@@ -1,0 +1,44 @@
+#FROM ruby:2.7-slim
+#
+#WORKDIR /app
+#
+#RUN apt-get update -qq && \
+#    apt-get install -y build-essential git && \
+#    rm -rf /var/lib/apt/lists/*
+#
+#COPY /src/api/vk/Gemfile ./
+#COPY /src/api/vk/vk-longpoll-bot-rb ./vk-longpoll-bot-rb
+#
+#COPY /src/api/vk ./src/api/vk
+#COPY /src/lib ./src/lib
+#
+#RUN ls vk-longpoll-bot-rb
+#RUN bundle install
+#RUN gem list
+#
+#CMD ["ruby", "src/api/vk/vkEntry.rb"]
+
+
+FROM ruby:2.7-slim
+
+WORKDIR /app
+
+RUN apt-get update -qq && \
+    apt-get install -y build-essential && \
+    rm -rf /var/lib/apt/lists/*
+
+COPY /src/api/vk/Gemfile ./
+COPY /src/api/vk/vk-longpoll-bot-rb ./vk-longpoll-bot-rb
+
+COPY /src/api/vk/vkEntry.rb ./src/api/vk/vkEntry.rb
+COPY /src/lib ./src/lib
+
+RUN cd vk-longpoll-bot-rb && \
+    gem build vk_longpoll_bot.gemspec && \
+    gem install *.gem && \
+    cd ..
+
+RUN gem install json_pure
+RUN cd ..
+
+CMD ["ruby", "src/api/vk/vkEntry.rb"]

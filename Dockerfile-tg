@@ -1,0 +1,15 @@
+FROM ruby:3.4-slim
+
+WORKDIR /app
+
+RUN apt-get update -qq && \
+    apt-get install -y build-essential && \
+    rm -rf /var/lib/apt/lists/*
+
+COPY /src/api/tg/Gemfile ./
+RUN bundle install
+
+COPY /src/api/tg ./src/api/tg
+COPY /src/lib ./src/lib
+
+CMD ["ruby", "src/api/tg/tg_entry.rb"]
