@@ -6,9 +6,10 @@ RUN apt-get update -qq && \
     apt-get install -y build-essential && \
     rm -rf /var/lib/apt/lists/*
 
-COPY src/Gemfile ./
+COPY /src/api/tg/Gemfile ./
 RUN bundle install
 
-COPY . .
+COPY /src/api/tg ./src/api/tg
+COPY /src/lib ./src/lib
 
 CMD ["ruby", "src/api/tg/tg_entry.rb"]

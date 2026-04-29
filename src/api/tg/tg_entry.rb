@@ -2,22 +2,34 @@
 
 require 'telegram/bot'
 require 'set'
+require 'faraday/excon'
 require_relative '../../lib/term'
 require_relative '../../lib/expr'
 require_relative 'inline_keyboard_message'
+
+$stdout.sync = true
+$stderr.sync = true
 
 HELP_MESSAGE = "
 \`/expr <выражение>\` задать выражение
 \`/diff <переменная>\` продифференциировать по заданной переменной
 "
 
-token = ENV['telegram_token']
+token = ENV['TELEGRAM_TOKEN']
+proxy_url = ENV['TELEGRAM_PROXY']
 
 last_expressions = {}
 last_messages = {}
 
+Telegram::Bot.configure do |config|
+  config.adapter = :excon
+  config.adapter_options = { socks5_proxy: proxy_url }
+end
+
+puts 'Starting bot'
 Telegram::Bot::Client.run(token) do |bot|
   puts 'Bot started'
+  puts "Proxy #{proxy_url}"
 
   bot.listen do |message|
     case message
@@ -105,6 +117,7 @@ Telegram::Bot::Client.run(token) do |bot|
     end
 
   rescue StandardError => e
+    puts e
     puts e.message
     puts e.backtrace
   end

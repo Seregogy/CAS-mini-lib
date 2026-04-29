@@ -2,11 +2,11 @@ require "vk_longpoll_bot"
 require_relative '../../lib/expr.rb'
 include VkLongpollBot
 
+$stdout.sync = true
+$stderr.sync = true
 
-# закинь в env
-
-String token = ENV['vk_token']
-String groupId = ENV['group_id']
+String token = ENV['VK_TOKEN']
+String groupId = ENV['GROUP_ID']
 
 KEYBOARD =
   {
